@@ -52,42 +52,17 @@ img{ width:162px; height:auto}
                          <img src="images/5.jpg"  /> 
                  </div>
         </div> 
-        <div class="box">
-                   <div class="pic">
-                           <img src="images/6.jpg"  /> 
-                   </div>
-          </div> 
-          <div class="box">
-                   <div class="pic">
-                           <img src="images/7.jpg"  /> 
-                   </div>
-          </div> 
-          <div class="box">
-                   <div class="pic">
-                           <img src="images/8.jpg"  /> 
-                   </div>
-          </div> 
-          <div class="box">
-                   <div class="pic">
-                           <img src="images/9.jpg"  /> 
-                   </div>
-          </div> 
-          <div class="box">
-                   <div class="pic">
-                           <img src="images/10.jpg"  /> 
-                   </div>
-          </div> 
-          <div class="box">
-                   <div class="pic">
-                           <img src="images/11.jpg"  /> 
-                   </div>
-          </div> 
+       
+          
 </div>
 <script type="text/javascript">
 var datep={"date":[{"src":"85.jpg"},{"src":"86.jpg"},{"src":"87.jpg"},{"src":"88.jpg"},{"src":"89.jpg"},{"src":"90.jpg"},{"src":"91.jpg"},{"src":"78.jpg"},{"src":"93.jpg"},{"src":"94.jpg"},{"src":"95.jpg"},{"src":"96.jpg"},{"src":"97.jpg"},{"src":"84.jpg"},{"src":"83.jpg"},{"src":"82.jpg"},{"src":"81.jpg"},{"src":"80.jpg"},{"src":"79.jpg"},{"src":"78.jpg"},{"src":"77.jpg"},{"src":"76.jpg"},{"src":"75.jpg"},{"src":"74.jpg"},{"src":"73.jpg"},{"src":"72.jpg"},{"src":"71.jpg"},{"src":"70.jpg"},{"src":"69.jpg"},{"src":"68.jpg"},{"src":"67.jpg"},{"src":"66.jpg"},{"src":"65.jpg"},{"src":"64.jpg"},{"src":"63.jpg"},{"src":"62.jpg"},{"src":"61.jpg"},{"src":"60.jpg"},{"src":"59.jpg"}]};
 //JSON格式的待加载图片路径
 window.onload=function(){
-  if(document.body.overflow!="scroll"){
+	var oParent=document.getElementById("demo");
+	var clientHeight = Math.max(document.documentElement.scrollHeight||document.body.scrollHeight,document.documentElement.clientHeight||document.body.clientHeight);
+  if(oParent.scrollHeight < clientHeight){
+  //图片都是浮动或者悬浮的，所以别的offset和client都为0
     scrollH(datep);
   };
   window.onscroll=function(){
@@ -101,11 +76,11 @@ function scrollH(datep){
    var cliH=document.documentElement.clientHeight||document.body.clientHeight;
    var pattern= oBoxs[oBoxs.length-1].offsetTop+Math.floor(oBoxs[oBoxs.length-1].offsetHeight/2)<(scrollT+cliH);
    if(pattern){
-      var oParent = document.getElementById('demo');
+      var oParent = document.getElementById('demo');// 父级对象
       /*for(var i=0,j=datep.date.length;i<j;i++){
-          var obox=document.createElement('div'); 
-          obox.className='box';                  
-          oParent.appendChild(obox);              
+          var obox=document.createElement('div'); //添加 元素节点
+          obox.className='box';                   //添加 类名 name属性
+          oParent.appendChild(obox);              //添加 子节点
           var opic=document.createElement('div');
           opic.className='pic';
           obox.appendChild(opic);
@@ -133,17 +108,17 @@ function waterfall(parent,cls){
 	  var colH=[];
 	  for(var i=0;i<oBoxs.length;i++){
       if(i<cols){
-        colH.push(oBoxs[i].offsetHeight);
-      }else{
-        j=i;
-        var min =Math.min.apply(null,colH);
-        var index=getIndex(colH,min);
-        oBoxs[j].style.position="absolute";
-        oBoxs[j].style.top=min+'px';
-        oBoxs[j].style.left=index*oBoxW+'px';
-        colH[index]+=oBoxs[j].offsetHeight;
-        }
-    }
+	  colH.push(oBoxs[i].offsetHeight);
+	}else{
+		j=i;
+		var min =Math.min.apply(null,colH);
+		var index=getIndex(colH,min);
+		oBoxs[j].style.position="absolute";
+		oBoxs[j].style.top=min+'px';//为什么这样？
+    		oBoxs[j].style.left=index*oBoxW+'px';
+		colH[index]+=oBoxs[j].offsetHeight;
+		}
+}
 }
 function getIndex(arr,val){
 	for(var i=0,j=arr.length;i<j;i++){
